@@ -1,8 +1,9 @@
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
 module.exports = {
-    
+    mode: "development",
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
-
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".jsx"]
@@ -24,6 +25,14 @@ module.exports = {
                 enforce: "pre",
                 test: /\.js$/,
                 loader: "source-map-loader"
+            },
+            {
+              test: /\.html$/,
+              use: [
+                {
+                  loader: "html-loader"
+                }
+              ]
             }
         ]
     },
@@ -35,5 +44,11 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"
-    }
+    },
+    plugins: [
+      new HtmlWebPackPlugin({
+        template: "./src/index.html",
+        filename: "./index.html"
+      })
+    ]
 };
