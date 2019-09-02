@@ -5,9 +5,9 @@ import {Initiative} from '../../src/components/Initiative';
 
 describe('Initiative component', () => {
 
-    it('renders initiative value', () => {
-        const wrapper = shallow(<Initiative/>);
+    it('accepts initiative value', () => {
+        const wrapper = shallow(<Initiative value={4}/>);
 
-        expect(wrapper.find('.initiaveValue')).toBeDefined();
+        expect(wrapper.find('#initiativeValue').get(0).props.value).toEqual(4);
     })
 });
