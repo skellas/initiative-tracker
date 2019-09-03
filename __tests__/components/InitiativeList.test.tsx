@@ -23,4 +23,5 @@ describe('Initiative List', () => {
 
         expect(wrapper.children().length).toEqual(3);
     });
+
 });
