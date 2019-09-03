@@ -30,4 +30,14 @@ export class InitiativeList extends React.Component<InitiativeListProps, Initiat
              </div>
         );
     }
+
+    toBottomOfInitiative(init:Initiative) {
+        this.setState(state => {
+            const initOrder = state.order.filter((item, counter) => init !== item);
+            initOrder.push(init);
+            return {
+                order: initOrder
+            };
+        });
+    }
 };
