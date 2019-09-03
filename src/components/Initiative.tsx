@@ -21,4 +21,4 @@ export class Initiative extends React.Component<InitiativeProps, {}> {
             </div>
         );
     }
-}
+};
