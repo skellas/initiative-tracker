@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 export interface InitiativeProps {
+    id: string;
     initiativeValue: number;
     characterName: string;
 };
@@ -13,7 +14,7 @@ export class Initiative extends React.Component<InitiativeProps, {}> {
 
     render() {
         return (
-            <div>
+            <div id={this.props.id}>
                 <h1>Initiative!</h1>
                 <span id="characterName">{this.props.characterName}</span>
                 <input id="initiativeValue" type="number" value={this.props.initiativeValue}/>
