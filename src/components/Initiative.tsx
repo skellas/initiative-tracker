@@ -1,19 +1,22 @@
 import * as React from 'react';
 
 export interface InitiativeProps {
-    value: number;
+    initiativeValue: number;
+    characterName: string;
 };
 
 export class Initiative extends React.Component<InitiativeProps, {}> {
     static defaultProps = {
-        value: -1
+        initiativeValue: -1,
+        characterName: "&nbsp;"
     };
 
     render() {
         return (
             <div>
                 <h1>Initiative!</h1>
-                <input id="initiativeValue" value={this.props.value}/>
+                <span id="characterName">{this.props.characterName}</span>
+                <input id="initiativeValue" type="number" value={this.props.initiativeValue}/>
             </div>
         );
     }
