@@ -15,8 +15,8 @@ export class Initiative extends React.Component<InitiativeProps, {}> {
     render() {
         return (
             <div id={this.props.id}>
-                <h1>Initiative!</h1>
-                <span id="characterName">{this.props.characterName}</span>
+                <h2 id="characterName">{this.props.characterName}</h2>
+                <label htmlFor="initiativeValue">Initiative Roll:</label>
                 <input id="initiativeValue" type="number" value={this.props.initiativeValue}/>
             </div>
         );
