@@ -22,6 +22,8 @@ export class InitiativeList extends React.Component<InitiativeListProps, Initiat
         this.state = {
             order: initiatives
         };
+
+        this.handleActionClick = this.handleActionClick.bind(this);
     }
 
     render() {
@@ -39,12 +41,17 @@ export class InitiativeList extends React.Component<InitiativeListProps, Initiat
                     {this.state.order}
                 </div>
                 <div className="fixed-action-btn">
-                    <a className="btn-floating btn-large black">
+                    <a className="btn-floating btn-large black" onClick={this.handleActionClick}>
                         <i className="large material-icons">colorize</i>
                     </a>
                 </div>
              </div>
         );
+    }
+
+    handleActionClick(event:React.MouseEvent<HTMLAnchorElement>) {
+        event.preventDefault();
+        this.toBottomOfInitiative(this.state.order[0]);
     }
 
     findHighestInitiativeValue():number {
