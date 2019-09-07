@@ -7,33 +7,44 @@ import {InitiativeList} from '../../src/components/InitiativeList';
 describe('Initiative List', () => {
 
     it('will render with provided identifier', ()=> {
-        const wrapper = shallow(<InitiativeList id="example"/>);
+        const wrapper = renderWrapper();
 
         expect(wrapper.getElement().props['id']).toEqual("example");
     });
 
     it('will render children passed in', () => {
-        const wrapper = shallow(
-            <InitiativeList id="example">
-                <Initiative id="001"/>
-                <Initiative id="002"/>
-                <Initiative id="003"/>
-            </InitiativeList>
-        );
+        const wrapper = renderWrapper();
 
-        expect(wrapper.children().length).toEqual(3);
+        expect(wrapper.find('#combatants').children().length).toEqual(3);
     });
 
     it('will move child to bottom of order', () => {
-        const wrapper = shallow<InitiativeList>(
+        const wrapper = renderWrapper();
+
+        wrapper.instance().toBottomOfInitiative(wrapper.state('order')[0]);
+        expect(wrapper.find('#combatants').children().last().prop('id')).toEqual("001");
+    });
+
+    it('will show top of round indicator on max initiative value', () => {
+        const wrapper = renderWrapper();
+
+        expect(wrapper.find('h2').text()).toEqual('Top of the Round');
+    });
+
+    it('will show next up indicator on lower than max initiative value', () => {
+        const wrapper = renderWrapper();
+
+        wrapper.instance().toBottomOfInitiative(wrapper.state('order')[0]);
+        expect(wrapper.find('h2').text()).toEqual('Next Up');
+    });
+
+    function renderWrapper() {
+        return shallow<InitiativeList>(
             <InitiativeList id="example">
-                <Initiative id="001"/>
-                <Initiative id="002"/>
-                <Initiative id="003"/>
+                <Initiative id="001" initiativeValue={20}/>
+                <Initiative id="002" initiativeValue={15}/>
+                <Initiative id="003" initiativeValue={1}/>
             </InitiativeList>
         );
-
-        wrapper.instance().toBottomOfInitiative(wrapper.prop('children')[0]);
-        expect(wrapper.children().last().prop('id')).toEqual("001");
-    });
+    }
 });

@@ -18,17 +18,32 @@ export class InitiativeList extends React.Component<InitiativeListProps, Initiat
 
     constructor(props:InitiativeListProps) {
         super(props);
+        const initiatives = React.Children.toArray<Initiative>(this.props.children);
         this.state = {
-            order: this.props.children
+            order: initiatives
         };
     }
 
     render() {
+        let heading;
+        if (this.state.order.length &&
+            this.state.order[0].props.initiativeValue == this.findHighestInitiativeValue()) {
+            heading = <h2>Top of the Round</h2>
+        } else {
+            heading = <h2>Next Up</h2>
+        }
         return(
             <div id={this.props.id}>
-                {this.state.order}
+                {heading}
+                <div id="combatants">
+                    {this.state.order}
+                </div>
              </div>
         );
+    }
+
+    findHighestInitiativeValue():number {
+        return Math.max.apply(Math, this.state.order.map((i) => {return i.props.initiativeValue}));
     }
 
     toBottomOfInitiative(init:Initiative) {
