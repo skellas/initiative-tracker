@@ -38,6 +38,11 @@ export class InitiativeList extends React.Component<InitiativeListProps, Initiat
                 <div id="combatants">
                     {this.state.order}
                 </div>
+                <div className="fixed-action-btn">
+                    <a className="btn-floating btn-large black">
+                        <i className="large material-icons">colorize</i>
+                    </a>
+                </div>
              </div>
         );
     }
