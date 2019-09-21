@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import {Initiative} from '../../src/components/Initiative';
+import {Initiative} from '../../../src/components/presentational/Initiative'
 
 describe('Initiative component', () => {
 

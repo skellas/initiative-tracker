@@ -1,64 +1,58 @@
 import * as React from 'react';
 
-import { Initiative } from './Initiative';
+import { Initiative } from '../presentational/Initiative';
+import { InitiativeList } from '../presentational/InitiativeList';
 
-export interface InitiativeListProps {
+export interface InitiativeContainerProps {
     id: string;
     children?: any;
 };
 
-export interface InitiativeListState {
+export interface InitiativeContainerState {
     order: Array<Initiative>;
 }
 
-export class InitiativeList extends React.Component<InitiativeListProps, InitiativeListState> {
+export class InitiativeContainer extends React.Component<InitiativeContainerProps, InitiativeContainerState> {
     static defaultProps = {
         children: new Array()
     };
 
-    constructor(props:InitiativeListProps) {
+    
+    constructor(props:InitiativeContainerProps) {
         super(props);
-        const initiatives = React.Children.toArray<Initiative>(this.props.children);
+        const initiativeList = React.Children.only<InitiativeList>(this.props.children);
         this.state = {
-            order: initiatives
+            order: React.Children.toArray<Initiative>(initiativeList.props.children)
         };
 
         this.handleActionClick = this.handleActionClick.bind(this);
     }
 
     render() {
-        let heading;
-        if (this.state.order.length &&
-            this.state.order[0].props.initiativeValue == this.findHighestInitiativeValue()) {
-            heading = <h2>Top of the Round</h2>
-        } else {
-            heading = <h2>Next Up</h2>
-        }
-        return(
+        return (
             <div id={this.props.id}>
-                {heading}
-                <div id="combatants">
+                <InitiativeList id="initiativeList">
                     {this.state.order}
-                </div>
+                </InitiativeList>
+                
                 <div className="fixed-action-btn">
                     <a className="btn-floating btn-large black" onClick={this.handleActionClick}>
                         <i className="large material-icons">colorize</i>
                     </a>
+                    <a className="btn-floating btn-large blue" onClick={this.handleActionClick}>
+                        <i className="large material-icons">colorize</i>
+                    </a>
                 </div>
-             </div>
+            </div>
         );
     }
-
+    
     handleActionClick(event:React.MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
-        this.toBottomOfInitiative(this.state.order[0]);
+        this.sendToBottomOfTheOrder(this.state.order[0]);
     }
 
-    findHighestInitiativeValue():number {
-        return Math.max.apply(Math, this.state.order.map((i) => {return i.props.initiativeValue}));
-    }
-
-    toBottomOfInitiative(init:Initiative) {
+    sendToBottomOfTheOrder(init:Initiative) {
         this.setState(state => {
             const initOrder = state.order.filter((item, counter) => init !== item);
             initOrder.push(init);
@@ -67,4 +61,5 @@ export class InitiativeList extends React.Component<InitiativeListProps, Initiat
             };
         });
     }
-};
+
+}
