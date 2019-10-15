@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Container } from '@material-ui/core';
+import { Container, Fab  } from '@material-ui/core';
+import { Colorize } from '@material-ui/icons';
 
 import { Initiative } from '../presentational/Initiative';
 import { InitiativeList } from '../presentational/InitiativeList';
@@ -32,24 +33,20 @@ export class InitiativeContainer extends React.Component<InitiativeContainerProp
 
     render() {
         return (
-            <Container maxWidth="lg" id={this.props.id}>
+            <Container maxWidth="sm" id={this.props.id}>
                 <InitiativeList id="initiativeList">
                     {this.state.order}
                 </InitiativeList>
                 
-                <div className="fixed-action-btn">
-                    <a className="btn-floating btn-large black" onClick={this.handleActionClick}>
-                        <i className="large material-icons">colorize</i>
-                    </a>
-                    <a className="btn-floating btn-large blue" onClick={this.handleActionClick}>
-                        <i className="large material-icons">colorize</i>
-                    </a>
-                </div>
+                <Fab color="primary" aria-label="Take Action"
+                    onClick={this.handleActionClick}>
+                    <Colorize />
+                </Fab>
             </Container>
         );
     }
     
-    handleActionClick(event:React.MouseEvent<HTMLAnchorElement>) {
+    handleActionClick(event:React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         this.sendToBottomOfTheOrder(this.state.order[0]);
     }
