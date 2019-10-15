@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Container } from '@material-ui/core';
+
 import { Initiative } from '../presentational/Initiative';
 import { InitiativeList } from '../presentational/InitiativeList';
 
@@ -30,7 +32,7 @@ export class InitiativeContainer extends React.Component<InitiativeContainerProp
 
     render() {
         return (
-            <div id={this.props.id}>
+            <Container maxWidth="lg" id={this.props.id}>
                 <InitiativeList id="initiativeList">
                     {this.state.order}
                 </InitiativeList>
@@ -43,7 +45,7 @@ export class InitiativeContainer extends React.Component<InitiativeContainerProp
                         <i className="large material-icons">colorize</i>
                     </a>
                 </div>
-            </div>
+            </Container>
         );
     }
     

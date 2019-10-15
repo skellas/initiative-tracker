@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Card, CardContent, TextField, Typography } from '@material-ui/core';
+
 export interface InitiativeProps {
     id: string;
     initiativeValue: number;
@@ -14,11 +16,15 @@ export class Initiative extends React.Component<InitiativeProps, {}> {
 
     render() {
         return (
-            <div id={this.props.id}>
-                <h2 id="characterName">{this.props.characterName}</h2>
-                <label htmlFor="initiativeValue">Initiative Roll:</label>
-                <input id="initiativeValue" type="number" value={this.props.initiativeValue}/>
-            </div>
+            <Card id={this.props.id}>
+                <CardContent>
+                    <Typography id="characterName" color="textPrimary" variant="h5" component="h2">
+                        {this.props.characterName}
+                    </Typography>
+                    <TextField disabled id="initiativeValue" label="Initiative Value"
+                        value={this.props.initiativeValue} type="number"/>
+                </CardContent>
+            </Card>
         );
     }
 };
